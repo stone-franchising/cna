@@ -6,7 +6,7 @@
     <title>Stone x CNA - Cadastro de Interesse</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -34,44 +34,71 @@
         }
 
         .card-header {
-            background: #00A868;
-            padding: 36px 28px 32px;
+            background: white;
+            padding: 36px 28px 36px;
             text-align: center;
         }
 
-        .card-header .logo {
-            font-size: 32px;
+        .logos-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .logos-row img {
+            display: block;
+        }
+
+        .logo-stone {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-divider {
+            width: 1.5px;
+            height: 36px;
+            background: #ccc;
+            flex-shrink: 0;
+        }
+
+        .logo-cna {
+            height: 40px;
+            width: auto;
+        }
+
+        .card-header-green {
+            background: white;
+            border-top: 1px solid #eee;
+            padding: 28px 28px 32px;
+            text-align: left;
+        }
+
+        .card-header-green .tagline {
+            font-family: 'Inter', sans-serif;
+            font-size: 11px;
             font-weight: 700;
-            color: white;
-            letter-spacing: -1px;
-        }
-
-        .card-header .event-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-top: 12px;
+            color: #1a5c2a;
+            margin-bottom: 12px;
         }
 
-        .card-header .headline {
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            margin-top: 16px;
-            line-height: 1.4;
+        .card-header-green .headline {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 44px;
+            line-height: 1.0;
+            text-transform: uppercase;
+            color: #1a5c2a;
+            margin-bottom: 16px;
         }
 
-        .card-header .sub {
-            color: rgba(255, 255, 255, 0.8);
+        .card-header-green .sub {
+            font-family: 'Inter', sans-serif;
+            color: #333;
             font-size: 14px;
-            margin-top: 6px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .card-body {
@@ -176,10 +203,10 @@
         .btn-submit {
             width: 100%;
             padding: 15px;
-            background: #00A868;
-            color: white;
+            background: #00FF57;
+            color: #0a1f0f;
             border: none;
-            border-radius: 9px;
+            border-radius: 50px;
             font-size: 16px;
             font-weight: 600;
             font-family: inherit;
@@ -189,11 +216,12 @@
         }
 
         .btn-submit:hover:not(:disabled) {
-            background: #009058;
+            background: #00e04c;
         }
 
         .btn-submit:disabled {
-            background: #6ecfaa;
+            background: #a8f0cc;
+            color: #555;
             cursor: not-allowed;
         }
 
@@ -249,10 +277,16 @@
 <body>
     <div class="card">
         <div class="card-header">
-            <div class="logo">Stone</div>
-            <div class="event-badge">Convencao CNA 2025</div>
-            <div class="headline">Solucoes financeiras para<br>a sua franquia crescer</div>
-            <div class="sub">Preencha o formulario e entraremos<br>em contato com a melhor proposta.</div>
+            <div class="logos-row">
+                <img class="logo-stone" src="https://martech-web-cdn.stone.com.br/optimized/stone/b76ad092-1102-4af7-ad58-18dc0c13df0c/Logo.png" alt="Stone">
+                <div class="logo-divider"></div>
+                <img class="logo-cna" src="https://cna.com.br/wp-content/uploads/2024/08/logo-cna-idiomas-color.webp" alt="CNA Idiomas">
+            </div>
+        </div>
+        <div class="card-header-green">
+            <div class="tagline">Parceria Stone & CNA</div>
+            <div class="headline">Solicite sua análise de condições</div>
+            <div class="sub">Preencha seus dados e solicite uma análise das condições de parceria Stone & CNA. Rápido, seguro e sem burocracia.</div>
         </div>
 
         <div class="card-body" id="formSection">
@@ -267,7 +301,7 @@
                 <div class="form-group">
                     <label class="form-label" for="email">E-mail</label>
                     <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email">
-                    <div class="error-msg" id="emailError">Informe um e-mail valido.</div>
+                    <div class="error-msg" id="emailError">Informe um e-mail válido.</div>
                 </div>
 
                 <div class="form-group">
@@ -277,38 +311,36 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Quantas operacoes CNA voce tem?</label>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="operacoes" value="1">
-                            <span>1 operacao</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="operacoes" value="+2">
-                            <span>2 ou mais operacoes</span>
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="operacoes" value="+5">
-                            <span>5 ou mais operacoes</span>
-                        </label>
-                    </div>
-                    <div class="error-msg" id="operacoesError">Selecione uma opcao.</div>
+                    <label class="form-label" for="operacoes">Quantas operações CNA você tem?</label>
+                    <select id="operacoes" name="operacoes">
+                        <option value="">Selecione uma opção</option>
+                        <option value="1">1 operação</option>
+                        <option value="+2">2 ou mais operações</option>
+                        <option value="+5">5 ou mais operações</option>
+                    </select>
+                    <div class="error-msg" id="operacoesError">Selecione uma opção.</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="faturamento">Faturamento mensal</label>
+                    <label class="form-label" for="cnpj">CNPJ</label>
+                    <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" inputmode="numeric">
+                    <div class="error-msg" id="cnpjError">Informe um CNPJ válido.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="faturamento">Faturamento médio mensal</label>
                     <select id="faturamento" name="faturamento">
                         <option value="">Selecione uma faixa</option>
-                        <option value="Ate R$ 80k">Ate R$ 80k / mes</option>
-                        <option value="R$ 80k a R$ 250k">R$ 80k a R$ 250k / mes</option>
-                        <option value="Acima de R$ 250k">Acima de R$ 250k / mes</option>
+                        <option value="Até R$ 80k">Até R$ 80k / mês</option>
+                        <option value="R$ 80k a R$ 250k">R$ 80k a R$ 250k / mês</option>
+                        <option value="Acima de R$ 250k">Acima de R$ 250k / mês</option>
                     </select>
                     <div class="error-msg" id="faturamentoError">Selecione o faturamento.</div>
                 </div>
 
-                <button type="submit" class="btn-submit" id="submitBtn">Enviar cadastro</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Solicitar análise</button>
                 <div class="alert-error" id="alertError">
-                    Nao foi possivel enviar. Verifique sua conexao e tente novamente.
+                    Não foi possível enviar. Verifique sua conexão e tente novamente.
                 </div>
 
             </form>
@@ -323,7 +355,7 @@
             <div class="success-title">Cadastro enviado!</div>
             <div class="success-text">
                 Obrigado pelo interesse.<br>
-                Entraremos em contato em breve<br>com as melhores solucoes Stone.
+                Entraremos em contato em breve<br>com as melhores soluções Stone.
             </div>
         </div>
     </div>
@@ -340,6 +372,15 @@
         const form      = document.getElementById('interestForm');
         const submitBtn = document.getElementById('submitBtn');
         const alertErr  = document.getElementById('alertError');
+
+        document.getElementById('cnpj').addEventListener('input', function () {
+            let v = this.value.replace(/\D/g, '').slice(0, 14);
+            if (v.length > 12)      v = `${v.slice(0,2)}.${v.slice(2,5)}.${v.slice(5,8)}/${v.slice(8,12)}-${v.slice(12)}`;
+            else if (v.length > 8)  v = `${v.slice(0,2)}.${v.slice(2,5)}.${v.slice(5,8)}/${v.slice(8)}`;
+            else if (v.length > 5)  v = `${v.slice(0,2)}.${v.slice(2,5)}.${v.slice(5)}`;
+            else if (v.length > 2)  v = `${v.slice(0,2)}.${v.slice(2)}`;
+            this.value = v;
+        });
 
         document.getElementById('telefone').addEventListener('input', function () {
             let v = this.value.replace(/\D/g, '').slice(0, 11);
@@ -369,7 +410,11 @@
             showError('telefoneError', tel.length < 10);
             if (tel.length < 10) ok = false;
 
-            const op = document.querySelector('input[name="operacoes"]:checked');
+            const cnpj = document.getElementById('cnpj').value.replace(/\D/g, '');
+            showError('cnpjError', cnpj.length !== 14);
+            if (cnpj.length !== 14) ok = false;
+
+            const op = document.getElementById('operacoes').value;
             showError('operacoesError', !op);
             if (!op) ok = false;
 
@@ -393,7 +438,8 @@
                     'Nome':             document.getElementById('nome').value.trim(),
                     'Email':            document.getElementById('email').value.trim(),
                     'Telefone':         document.getElementById('telefone').value.trim(),
-                    'Operacoes CNA':    document.querySelector('input[name="operacoes"]:checked').value,
+                    'CNPJ':             document.getElementById('cnpj').value.trim(),
+                    'Operações CNA':    document.getElementById('operacoes').value,
                     'Faturamento':      document.getElementById('faturamento').value,
                 }
             };
@@ -419,7 +465,7 @@
             } catch (err) {
                 alertErr.style.display    = 'block';
                 submitBtn.disabled        = false;
-                submitBtn.textContent     = 'Enviar cadastro';
+                submitBtn.textContent     = 'Solicitar análise';
             }
         });
     </script>
