@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stone x CNA - Cadastro de Interesse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f0f0f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 16px 48px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 480px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+        }
+
+        .card-header {
+            background: #00A868;
+            padding: 36px 28px 32px;
+            text-align: center;
+        }
+
+        .card-header .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -1px;
+        }
+
+        .card-header .event-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        .card-header .headline {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 16px;
+            line-height: 1.4;
+        }
+
+        .card-header .sub {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .card-body {
+            padding: 32px 28px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111;
+            margin-bottom: 7px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #111;
+            transition: border-color 0.15s;
+            outline: none;
+            background: white;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            border-color: #00A868;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 13px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
+            user-select: none;
+        }
+
+        .radio-option:has(input:checked) {
+            border-color: #00A868;
+            background: #f0faf6;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: #00A868;
+            width: 18px;
+            height: 18px;
+            margin-right: 11px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .radio-option span {
+            font-size: 15px;
+            color: #111;
+        }
+
+        select {
+            width: 100%;
+            padding: 13px 40px 13px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #111;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 13px center;
+            transition: border-color 0.15s;
+        }
+
+        select:focus {
+            border-color: #00A868;
+        }
+
+        select option[value=""] {
+            color: #999;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #00A868;
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: background 0.15s;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            background: #009058;
+        }
+
+        .btn-submit:disabled {
+            background: #6ecfaa;
+            cursor: not-allowed;
+        }
+
+        .error-msg {
+            font-size: 13px;
+            color: #d93025;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border: 1.5px solid #fecaca;
+            color: #b91c1c;
+            padding: 12px 14px;
+            border-radius: 9px;
+            font-size: 14px;
+            margin-top: 14px;
+            display: none;
+        }
+
+        .success-state {
+            text-align: center;
+            padding: 56px 28px 60px;
+            display: none;
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            background: #f0faf6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+        }
+
+        .success-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <div class="logo">Stone</div>
+            <div class="event-badge">Convencao CNA 2025</div>
+            <div class="headline">Solucoes financeiras para<br>a sua franquia crescer</div>
+            <div class="sub">Preencha o formulario e entraremos<br>em contato com a melhor proposta.</div>
+        </div>
+
+        <div class="card-body" id="formSection">
+            <form id="interestForm" novalidate>
+
+                <div class="form-group">
+                    <label class="form-label" for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="name">
+                    <div class="error-msg" id="nomeError">Preencha o seu nome.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email">
+                    <div class="error-msg" id="emailError">Informe um e-mail valido.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="telefone">Telefone / WhatsApp</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" autocomplete="tel">
+                    <div class="error-msg" id="telefoneError">Informe o telefone com DDD.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Quantas operacoes CNA voce tem?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="operacoes" value="1">
+                            <span>1 operacao</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="operacoes" value="+2">
+                            <span>2 ou mais operacoes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="operacoes" value="+5">
+                            <span>5 ou mais operacoes</span>
+                        </label>
+                    </div>
+                    <div class="error-msg" id="operacoesError">Selecione uma opcao.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="faturamento">Faturamento mensal</label>
+                    <select id="faturamento" name="faturamento">
+                        <option value="">Selecione uma faixa</option>
+                        <option value="Ate R$ 80k">Ate R$ 80k / mes</option>
+                        <option value="R$ 80k a R$ 250k">R$ 80k a R$ 250k / mes</option>
+                        <option value="Acima de R$ 250k">Acima de R$ 250k / mes</option>
+                    </select>
+                    <div class="error-msg" id="faturamentoError">Selecione o faturamento.</div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Enviar cadastro</button>
+                <div class="alert-error" id="alertError">
+                    Nao foi possivel enviar. Verifique sua conexao e tente novamente.
+                </div>
+
+            </form>
+        </div>
+
+        <div class="success-state" id="successSection">
+            <div class="success-icon">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#00A868" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <div class="success-title">Cadastro enviado!</div>
+            <div class="success-text">
+                Obrigado pelo interesse.<br>
+                Entraremos em contato em breve<br>com as melhores solucoes Stone.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // -------------------------------------------------------
+        // CONFIGURACAO AIRTABLE — preencha apos criar a base
+        // -------------------------------------------------------
+        const AIRTABLE_TOKEN   = 'COLE_SEU_TOKEN_AQUI';
+        const AIRTABLE_BASE_ID = 'COLE_SEU_BASE_ID_AQUI';
+        const AIRTABLE_TABLE   = 'Leads';
+        // -------------------------------------------------------
+
+        const form      = document.getElementById('interestForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const alertErr  = document.getElementById('alertError');
+
+        document.getElementById('telefone').addEventListener('input', function () {
+            let v = this.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 6)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+            else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+            else if (v.length > 0) v = `(${v}`;
+            this.value = v;
+        });
+
+        function showError(id, show) {
+            document.getElementById(id).style.display = show ? 'block' : 'none';
+        }
+
+        function validate() {
+            let ok = true;
+
+            const nome = document.getElementById('nome').value.trim();
+            showError('nomeError', !nome);
+            if (!nome) ok = false;
+
+            const email = document.getElementById('email').value.trim();
+            const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            showError('emailError', !emailOk);
+            if (!emailOk) ok = false;
+
+            const tel = document.getElementById('telefone').value.replace(/\D/g, '');
+            showError('telefoneError', tel.length < 10);
+            if (tel.length < 10) ok = false;
+
+            const op = document.querySelector('input[name="operacoes"]:checked');
+            showError('operacoesError', !op);
+            if (!op) ok = false;
+
+            const fat = document.getElementById('faturamento').value;
+            showError('faturamentoError', !fat);
+            if (!fat) ok = false;
+
+            return ok;
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            alertErr.style.display = 'none';
+            if (!validate()) return;
+
+            submitBtn.disabled    = true;
+            submitBtn.textContent = 'Enviando...';
+
+            const payload = {
+                fields: {
+                    'Nome':             document.getElementById('nome').value.trim(),
+                    'Email':            document.getElementById('email').value.trim(),
+                    'Telefone':         document.getElementById('telefone').value.trim(),
+                    'Operacoes CNA':    document.querySelector('input[name="operacoes"]:checked').value,
+                    'Faturamento':      document.getElementById('faturamento').value,
+                }
+            };
+
+            try {
+                const res = await fetch(
+                    `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`,
+                    {
+                        method:  'POST',
+                        headers: {
+                            'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+                            'Content-Type':  'application/json',
+                        },
+                        body: JSON.stringify(payload),
+                    }
+                );
+
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                document.getElementById('formSection').style.display  = 'none';
+                document.getElementById('successSection').style.display = 'block';
+
+            } catch (err) {
+                alertErr.style.display    = 'block';
+                submitBtn.disabled        = false;
+                submitBtn.textContent     = 'Enviar cadastro';
+            }
+        });
+    </script>
+</body>
+</html>
